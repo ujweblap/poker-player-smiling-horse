@@ -131,6 +131,46 @@ class CardCheckerTest extends TestCase {
         $this->assertEquals(CardChecker::DRILL, $cardChecker->getWhatWeHave());
     }
 
+    public function testHasStraight()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'spades',
+                ],
+            ],
+            [
+                [
+                    'rank' => '4',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '5',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'spades',
+                ],
+            ]
+        );
+
+        $this->assertEquals(CardChecker::STRAIGHT, $cardChecker->getWhatWeHave());
+    }
+
     public function testHasFullHouse()
     {
         $cardChecker = new \SmilingHorse\CardChecker(

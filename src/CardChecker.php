@@ -44,7 +44,7 @@ class CardChecker
     {
         $this->handCards = $this->convertCardRank($handCards);
         $this->communityCards = $this->convertCardRank($communityCards);
-        $this->allCards = array_merge($handCards, $communityCards);
+        $this->allCards = array_merge($this->handCards, $this->communityCards);
     }
 
     public function getWhatWeHave()
@@ -57,6 +57,8 @@ class CardChecker
             $weHave = static::FULL_HOUSE;
         } elseif ($this->hasDrill()) {
             $weHave = static::DRILL;
+        } elseif ($this->hasStraight()) {
+            $weHave = static::STRAIGHT;
         } elseif ($this->hasPair(true)) {
             $weHave = static::TWO_PAIR;
         } elseif ($this->hasPair()) {
@@ -88,6 +90,30 @@ class CardChecker
                 return true;
             }
         }
+        return false;
+    }
+
+    public function hasStraight()
+    {
+        $straightCount = 0;
+        $lastCardRank = false;
+        foreach ($this->allCards as $card) {
+            if($lastCardRank === false || $lastCardRank != $card['rank'] - 1)
+            {
+                $lastCardRank = $card['rank'];
+                $straightCount = 1;
+                continue;
+            }
+
+            $lastCardRank = $card['rank'];
+            $straightCount++;
+
+            if($straightCount == 5)
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
