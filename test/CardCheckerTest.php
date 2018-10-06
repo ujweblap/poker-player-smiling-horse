@@ -330,4 +330,44 @@ class CardCheckerTest extends TestCase {
 
         $this->assertEquals(CardChecker::STRAIGHT_FLUSH, $cardChecker->getWhatWeHave());
     }
+
+    public function testHasRoyalFlush()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '10',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'J',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'Q',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertEquals(CardChecker::ROYAL_FLUSH, $cardChecker->getWhatWeHave());
+    }
 }

@@ -58,7 +58,9 @@ class CardChecker
     {
         $weHave = static::NOTHING;
 
-        if ($this->hasStraightFlush() !== false) {
+        if ($this->hasRoyalFlush()) {
+            $weHave = static::ROYAL_FLUSH;
+        } elseif ($this->hasStraightFlush() !== false) {
             $weHave = static::STRAIGHT_FLUSH;
         } elseif ($this->hasPoker()) {
             $weHave = static::POKER;
@@ -118,10 +120,7 @@ class CardChecker
 
     public function hasStraight()
     {
-        $sortedCards = $this->allCards;
-        usort($sortedCards, function($a, $b) {
-            return $a['rank'] <=> $b['rank'];
-        });
+        $sortedCards = $this->sortCardsByRank($this->allCards);
         $lastCardRank = false;
         $cards = [];
         foreach ($sortedCards as $card) {
@@ -156,21 +155,20 @@ class CardChecker
             foreach ($this->allCards as $cardFromAllCard) {
                 foreach ($baseCards as $baseCard) {
                     if ($cardFromAllCard['rank'] == $baseCard['rank'] && $cardFromAllCard['suit'] == $baseCard['suit']) {
-                        $cards[$cardFromAllCard['suit'].$cardFromAllCard['rank']] = $cardFromAllCard;
+                        $cards[$cardFromAllCard['suit'] . $cardFromAllCard['rank']] = $cardFromAllCard;
                         continue;
                     }
 
-                    if($cardFromAllCard['suit'] == $baseCard['suit'])
-                    {
-                        $cards[$cardFromAllCard['suit'].$cardFromAllCard['rank']] = $cardFromAllCard;
+                    if ($cardFromAllCard['suit'] == $baseCard['suit']) {
+                        $cards[$cardFromAllCard['suit'] . $cardFromAllCard['rank']] = $cardFromAllCard;
                     }
                 }
             }
         }
 
-        foreach ($this->getAllCardSuitCounts($cards) as $suit => $suitCount) {
-            if ($suitCount >= min(count($cards), 5)) {
-                return $suit;
+        foreach ($this->getAllCardSuitCounts($cards) as $suit => $suitCards) {
+            if (count($suitCards) >= min(count($cards), 5)) {
+                return $suitCards;
             }
         }
 
@@ -197,6 +195,21 @@ class CardChecker
         $straightCards = $this->hasStraight();
         if ($straightCards !== false) {
             return $this->hasFlush($straightCards);
+        }
+
+        return false;
+    }
+
+    public function hasRoyalFlush()
+    {
+        $straightCards = $this->hasStraight();
+        if ($straightCards !== false) {
+            $flushCards = $this->hasFlush($straightCards);
+            if($flushCards !== false)
+            {
+                $flushCards = $this->sortCardsByRank($flushCards);
+                return array_shift($flushCards)['rank'] === 10;
+            }
         }
 
         return false;
@@ -231,13 +244,13 @@ class CardChecker
     {
         $suits = [];
 
-        foreach ($cards as $handCard) {
-            if (!isset($suits[$handCard['suit']])) {
-                $suits[$handCard['suit']] = 1;
+        foreach ($cards as $card) {
+            if (!isset($suits[$card['suit']])) {
+                $suits[$card['suit']] = [$card];
                 continue;
             }
 
-            $suits[$handCard['suit']]++;
+            $suits[$card['suit']][] = $card;
         }
 
         return $suits;
@@ -283,5 +296,14 @@ class CardChecker
     public function mapLetterToNumber($letter)
     {
         return $this->card_number_map[$letter];
+    }
+
+    protected function sortCardsByRank($cards)
+    {
+        usort($cards, function ($a, $b) {
+            return $a['rank'] <=> $b['rank'];
+        });
+
+        return $cards;
     }
 }
