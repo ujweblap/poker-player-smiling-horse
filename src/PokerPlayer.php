@@ -5,7 +5,7 @@
  * Date: 2018. 10. 06.
  * Time: 10:11
  */
-
+namespace SmilingHorse;
 class PokerPlayer
 {
 	public $name;

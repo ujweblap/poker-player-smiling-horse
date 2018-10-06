@@ -5,7 +5,7 @@
  * Date: 2018. 10. 06.
  * Time: 10:10
  */
-
+namespace SmilingHorse;
 class GameState
 {
 	public $players = array();
