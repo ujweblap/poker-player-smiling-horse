@@ -22,13 +22,15 @@ class PokerLogic {
 		$to_bet = $this->GameState->getCurrentBuyIn() - $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
 		$multiplier = 0;
-		if ($this->GameState->getOrbits() == 0) {
+		if (empty($this->GameState->getCommunityCards())) {
 			if ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
 				$multiplier = 2;
 			} else if ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS) {
 				$multiplier = 1;
 			} else if ($this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
 				$multiplier = 1.1;
+			} else if ($this->CardChecker->getCountMaxSameColor() == 2 && $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet() < $this->GameState->getSmallBlind()*2) {
+				$multiplier = 1;
 			}
 		} else {
 			switch ($this->CardChecker->getWhatWeHave()) {
@@ -66,6 +68,14 @@ class PokerLogic {
 					$multiplier = 2.6;
 					break;
 				default:
+			}
+			if ($multiplier == 0 && sizeof($this->GameState->getCommunityCards()) == 3) {
+				if ($this->CardChecker->getCountMaxSameColor() == 4) {
+					$multiplier = 1;
+				}
+			}
+			if (sizeof($this->GameState->getCommunityCards()) == 3 && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
+				$multiplier = 1;
 			}
 		}
 
