@@ -1,11 +1,23 @@
 <?php
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 class Player
 {
+    protected $monolog;
+
     const VERSION = "Smiling Horse 😁🐴";
+
+    public function __construct()
+    {
+        $this->monolog = new Logger('player');
+        $this->monolog->pushHandler(new StreamHandler("php://stderr", Logger::DEBUG));
+    }
 
     public function betRequest($game_state)
     {
+        $this->monolog->debug('Test log', $game_state[$game_state['in_action']]['hole_cards']);
     	//ALL IN
 	    return 10000;
 
