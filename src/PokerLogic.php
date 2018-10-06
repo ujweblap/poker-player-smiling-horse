@@ -89,7 +89,7 @@ class PokerLogic
             }
         }
 
-        return $to_bet * $multiplier;
+        return $to_bet * ($multiplier * ($this->GameState->getSmallBlind() * 2));
     }
 
     public function doBluff()
