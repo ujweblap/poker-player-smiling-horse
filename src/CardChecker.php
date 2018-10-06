@@ -11,6 +11,13 @@ class CardChecker
     const NOTHING = 0;
     const PAIR = 1;
     const TWO_PAIR = 2;
+    const DRILL = 3;
+    const STRAIGHT = 4;
+    const FLUSH = 5;
+    const FULL_HOUSE = 6;
+    const FOUR_OF_A_KIND = 7;
+    const STRAIGHT_FLUSH = 8;
+    const ROYAL_FLUSH = 9;
 
     /**
      * CardChecker constructor.
