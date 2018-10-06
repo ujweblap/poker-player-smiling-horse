@@ -120,12 +120,50 @@ class CardChecker
     {
         $biggerCard = max($this->handCards[0]['rank'], $this->handCards[1]['rank']);
         $smallerCard = min($this->handCards[0]['rank'], $this->handCards[1]['rank']);
-        if($biggerCard == 14)
-        {
+        if ($biggerCard == 14) {
             return $biggerCard - $smallerCard < 5 || $smallerCard - 1 < 5;
         }
 
         return $biggerCard - $smallerCard < 5;
+    }
+
+    /**
+     * If it is a closed straight from one side, it will return 1
+     * If it is open on both side, it will return 2
+     *
+     * @return int
+     */
+    public function canBeStraight()
+    {
+        $sortedCards = $this->sortCardsByRank($this->addAceToTheBeginning($this->allCards));
+        $biggestStraight = [];
+        $lastCardRank = false;
+        $cards = [];
+
+        foreach ($sortedCards as $sortedCard) {
+            if ($lastCardRank === false || $lastCardRank != $sortedCard['rank'] - 1) {
+                if (count($biggestStraight) < count($cards)) {
+                    $biggestStraight = $cards;
+                }
+                $cards = [$sortedCard];
+                $lastCardRank = $sortedCard['rank'];
+                continue;
+            }
+
+            $cards[] = $sortedCard;
+            $lastCardRank = $sortedCard['rank'];
+        }
+
+        if (count($biggestStraight) < count($cards)) {
+            $biggestStraight = max($biggestStraight, count($cards));
+        }
+
+        if($biggestStraight[0]['rank'] == 1 || $biggestStraight[count($biggestStraight)-1]['rank'] == 14)
+        {
+            return 1;
+        }
+
+        return 2;
     }
 
     public function hasStraight()
@@ -215,8 +253,7 @@ class CardChecker
         $straightCards = $this->hasStraight();
         if ($straightCards !== false) {
             $flushCards = $this->hasFlush($straightCards);
-            if($flushCards !== false)
-            {
+            if ($flushCards !== false) {
                 $flushCards = $this->sortCardsByRank($flushCards);
                 return array_shift($flushCards)['rank'] === 10;
             }
@@ -320,8 +357,7 @@ class CardChecker
     protected function addAceToTheBeginning($cards)
     {
         foreach ($cards as $card) {
-            if($card['rank'] == 13)
-            {
+            if ($card['rank'] == 14) {
                 $cards[] = [
                     'rank' => 1,
                     'suit' => $card['suit'],

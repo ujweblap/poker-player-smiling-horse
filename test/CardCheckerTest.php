@@ -570,4 +570,124 @@ class CardCheckerTest extends TestCase {
 
         $this->assertFalse($cardChecker->canBeStraightFromHand());
     }
+
+    public function testCanBeStraightClosedBeginning()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '9',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '4',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertEquals(1, $cardChecker->canBeStraight());
+    }
+
+    public function testCanBeStraightClosedEnding()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '9',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'J',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'Q',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertEquals(1, $cardChecker->canBeStraight());
+    }
+
+    public function testCanBeStraightOpened()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '9',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'J',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => 'Q',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertEquals(2, $cardChecker->canBeStraight());
+    }
 }
