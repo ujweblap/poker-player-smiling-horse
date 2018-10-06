@@ -66,7 +66,7 @@ class PokerLogic
                     $multiplier = 1.4;
                     break;
                 case CardChecker::TWO_PAIR:
-                    $multiplier = 1.2;
+                    $multiplier = 1.3;
                     break;
                 case CardChecker::PAIR:
                     $multiplier = 1.0;
@@ -93,8 +93,8 @@ class PokerLogic
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
             $multiplier = 3;
         }
-
-		return $multiplier > 0 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
+		if ($multiplier == 1) return $to_bet;
+		return $multiplier > 1.2 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
     }
 
     public function doBluff()
