@@ -1,23 +1,19 @@
 <?php
 
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-
 class Player
 {
-    protected $monolog;
+    protected $logger;
 
     const VERSION = "Smiling Horse 😁🐴";
 
     public function __construct()
     {
-        $this->monolog = new Logger('player');
-        $this->monolog->pushHandler(new StreamHandler("php://stderr", Logger::DEBUG));
+        $this->logger = new \SmilingHorse\LoggerInterface();
     }
 
     public function betRequest($game_state)
     {
-        $this->monolog->debug('Test log', $game_state[$game_state['in_action']]['hole_cards']);
+        $this->logger->getMonolog()->debug('Test log', $game_state[$game_state['in_action']]['hole_cards']);
     	//ALL IN
 	    return 10000;
 
