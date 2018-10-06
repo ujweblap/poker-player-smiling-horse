@@ -89,7 +89,14 @@ class PokerLogic
             }
         }
 
-        return $to_bet * ($multiplier * ($this->GameState->getSmallBlind() * 2));
+
+        if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
+            $multiplier = 10;
+        } elseif ($this->doBluff()) {
+            $multiplier = 4;
+        }
+
+		return $to_bet * ($multiplier * ($this->GameState->getSmallBlind() * 2));
     }
 
     public function doBluff()
