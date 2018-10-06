@@ -93,7 +93,7 @@ class PokerLogic
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
             $multiplier = 3;
         }
-		if ($multiplier == 1) return $to_bet;
+		if ($multiplier <= 1.2) return $to_bet;
 		return $multiplier > 1.2 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
     }
 
