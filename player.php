@@ -13,7 +13,7 @@ class Player
 
     public function betRequest($game_state)
     {
-        $this->logger->getMonolog()->debug('Test log', $game_state[$game_state['in_action']]['hole_cards']);
+        $this->logger->getMonolog()->debug('Game state', $game_state);
     	//ALL IN
 	    //return 10000;
 		$pokerLogic = new \SmilingHorse\PokerLogic();
@@ -50,10 +50,28 @@ class Player
     }
 
     public function check9orHigher($own_cards) {
-    	if ($own_cards[0]['rank'] >= 9 && $own_cards[1]['rank'] >= 9) {
+    	$card1 = $own_cards[0]['rank'];
+    	$card2 = $own_cards[1]['rank'];
+    	if (!is_numeric($card1)) {
+    		$card1 = $this->mapLetterToNumber($card1);
+	    }
+	    if (!is_numeric($card2)) {
+		    $card2 = $this->mapLetterToNumber($card2);
+	    }
+    	if ($card1 >= 9 && $card2 >= 9) {
     		return true;
 	    }
     	return false;
+    }
+
+    public function mapLetterToNumber($letter) {
+    	$map = array(
+    		'J' => 11,
+		    'Q' => 12,
+		    'K' => 13,
+		    'A' => 14
+	    );
+    	return $map[$letter];
     }
 
     public function hasPair($cards) {
