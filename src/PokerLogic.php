@@ -89,6 +89,10 @@ class PokerLogic
             }
         }
 
+        if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
+            $multiplier = 10;
+        }
+
         return $to_bet * $multiplier;
     }
 
