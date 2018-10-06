@@ -14,15 +14,15 @@ class CardChecker
 
     const NOTHING = 0;
     const HIGH_CARDS = 1;
-    const PAIR = 1;
-    const TWO_PAIR = 2;
-    const DRILL = 3;
-    const STRAIGHT = 4;
-    const FLUSH = 5;
-    const FULL_HOUSE = 6;
-    const POKER = 7;
-    const STRAIGHT_FLUSH = 8;
-    const ROYAL_FLUSH = 9;
+    const PAIR = 2;
+    const TWO_PAIR = 3;
+    const DRILL = 4;
+    const STRAIGHT = 5;
+    const FLUSH = 6;
+    const FULL_HOUSE = 7;
+    const POKER = 8;
+    const STRAIGHT_FLUSH = 9;
+    const ROYAL_FLUSH = 10;
 
     public $card_number_map = array(
         '2' => 2,
