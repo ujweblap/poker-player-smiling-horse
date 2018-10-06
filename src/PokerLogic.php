@@ -75,7 +75,7 @@ class PokerLogic
                 case CardChecker::NOTHING:
                 case CardChecker::HIGH_CARDS:
                 default:
-                    $multiplier = $this->fold();
+                    return $this->fold();
                     break;
             }
             if ($multiplier == $this->fold() && sizeof($this->GameState->getCommunityCards()) == 3) {
