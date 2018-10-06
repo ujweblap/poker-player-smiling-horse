@@ -15,6 +15,7 @@ class PokerLogic {
 	}
 
 	public function getBet() {
+		$to_bet = $this->GameState->getCurrentBuyIn() + $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 		return 0;
 	}
 }
