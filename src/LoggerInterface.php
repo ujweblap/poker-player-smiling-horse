@@ -12,7 +12,7 @@ class LoggerInterface {
     public function __construct()
     {
         $this->monolog = new Logger('player');
-        $this->monolog->pushHandler(new StreamHandler("php://stderr", LoggerInterface::DEBUG));
+        $this->monolog->pushHandler(new StreamHandler("php://stderr", Logger::DEBUG));
     }
 
     /**
