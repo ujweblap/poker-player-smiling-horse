@@ -13,8 +13,7 @@ class Player
 
     public function betRequest($game_state)
     {
-        $context = (isset($game_state[$game_state['in_action']]['hole_cards']) && is_array($game_state[$game_state['in_action']]['hole_cards']))?$game_state[$game_state['in_action']]['hole_cards']:[];
-        $this->logger->getMonolog()->debug('Test log', $context);
+        $this->logger->getMonolog()->debug('Game state', $game_state);
     	//ALL IN
 	    //return 10000;
 
