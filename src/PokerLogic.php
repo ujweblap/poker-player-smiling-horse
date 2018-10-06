@@ -41,7 +41,7 @@ class PokerLogic
             } elseif ($this->CardChecker->canBeStraightFromHand() && $this->CardChecker->getCountMaxSameColor() == 2) {
                 $multiplier = $this->raise(1.2);
             } elseif ($this->CardChecker->getCountMaxSameColor() == 2 && $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet() < $this->GameState->getSmallBlind() * 2) {
-                $multiplier = $this->raise(1);
+                $multiplier = $this->check();
             }
         } else {
             switch ($this->CardChecker->getWhatWeHave()) {
@@ -70,7 +70,7 @@ class PokerLogic
                     $multiplier = $this->raise(1.3);
                     break;
                 case CardChecker::PAIR:
-                    $multiplier = $this->raise(1.0);
+                    $multiplier = $this->check();
                     break;
                 case CardChecker::NOTHING:
                 case CardChecker::HIGH_CARDS:
@@ -80,12 +80,12 @@ class PokerLogic
             }
             if ($multiplier == $this->fold() && sizeof($this->GameState->getCommunityCards()) == 3) {
                 if ($this->CardChecker->getCountMaxSameColor() == 4 || $this->CardChecker->canBeStraight()) {
-                    $multiplier = $this->raise(1);
+                    $multiplier = $this->check();
                 }
             }
             if ($multiplier == $this->fold() && sizeof($this->GameState->getCommunityCards()) >= 3) {
                 if ($this->CardChecker->canBeStraight()) {
-                    $multiplier = $this->raise(1);
+                    $multiplier = $this->check();
                 }
             }
         }
@@ -94,7 +94,7 @@ class PokerLogic
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
             $multiplier = $this->raise(3);
         }
-		if ($multiplier == 1) return $to_bet;
+		if ($multiplier == $this->check()) return $to_bet;
 		return $multiplier > 1.2 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
     }
 
