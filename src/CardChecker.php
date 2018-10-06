@@ -319,4 +319,20 @@ class CardChecker
 
         return $cards;
     }
+
+    public function getCountMaxSameColor() {
+		$c1 = $this->getCountSameColor($this->handCards[0]['suit']);
+		$c2 = $this->getCountSameColor($this->handCards[1]['suit']);
+		return max($c1, $c2);
+	}
+
+	public function getCountSameColor($suit) {
+    	$count = 0;
+    	foreach ($this->allCards as $card) {
+    		if ($card['suit'] == $suit) {
+    			$count++;
+			}
+		}
+		return $count;
+	}
 }
