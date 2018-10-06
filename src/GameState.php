@@ -48,27 +48,11 @@ class GameState
 	}
 
 	/**
-	 * @param Player $player
-	 */
-	public function addPlayer($player)
-	{
-		$this->players[] = $player;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getTournamentId()
 	{
 		return $this->tournament_id;
-	}
-
-	/**
-	 * @param mixed $tournament_id
-	 */
-	public function setTournamentId($tournament_id)
-	{
-		$this->tournament_id = $tournament_id;
 	}
 
 	/**
@@ -80,27 +64,11 @@ class GameState
 	}
 
 	/**
-	 * @param mixed $game_id
-	 */
-	public function setGameId($game_id)
-	{
-		$this->game_id = $game_id;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getRound()
 	{
 		return $this->round;
-	}
-
-	/**
-	 * @param mixed $round
-	 */
-	public function setRound($round)
-	{
-		$this->round = $round;
 	}
 
 	/**
@@ -112,27 +80,11 @@ class GameState
 	}
 
 	/**
-	 * @param mixed $bet_index
-	 */
-	public function setBetIndex($bet_index)
-	{
-		$this->bet_index = $bet_index;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getSmallBlind()
 	{
 		return $this->small_blind;
-	}
-
-	/**
-	 * @param mixed $small_blind
-	 */
-	public function setSmallBlind($small_blind)
-	{
-		$this->small_blind = $small_blind;
 	}
 
 	/**
@@ -144,27 +96,11 @@ class GameState
 	}
 
 	/**
-	 * @param mixed $orbits
-	 */
-	public function setOrbits($orbits)
-	{
-		$this->orbits = $orbits;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getInAction()
 	{
 		return $this->in_action;
-	}
-
-	/**
-	 * @param mixed $in_action
-	 */
-	public function setInAction($in_action)
-	{
-		$this->in_action = $in_action;
 	}
 
 	/**
@@ -176,27 +112,11 @@ class GameState
 	}
 
 	/**
-	 * @param mixed $dealer
-	 */
-	public function setDealer($dealer)
-	{
-		$this->dealer = $dealer;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getCommunityCards()
 	{
 		return $this->community_cards;
-	}
-
-	/**
-	 * @param mixed $community_cards
-	 */
-	public function setCommunityCards($community_cards)
-	{
-		$this->community_cards = $community_cards;
 	}
 
 	/**
@@ -208,29 +128,11 @@ class GameState
 	}
 
 	/**
-	 * @param mixed $current_buy_in
-	 */
-	public function setCurrentBuyIn($current_buy_in)
-	{
-		$this->current_buy_in = $current_buy_in;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getPot()
 	{
 		return $this->pot;
 	}
-
-	/**
-	 * @param mixed $pot
-	 */
-	public function setPot($pot)
-	{
-		$this->pot = $pot;
-	}
-
-
 
 }

@@ -36,27 +36,11 @@ class PokerPlayer
 	}
 
 	/**
-	 * @param mixed $name
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getStack()
 	{
 		return $this->stack;
-	}
-
-	/**
-	 * @param mixed $stack
-	 */
-	public function setStack($stack)
-	{
-		$this->stack = $stack;
 	}
 
 	/**
@@ -68,27 +52,11 @@ class PokerPlayer
 	}
 
 	/**
-	 * @param mixed $status
-	 */
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getBet()
 	{
 		return $this->bet;
-	}
-
-	/**
-	 * @param mixed $bet
-	 */
-	public function setBet($bet)
-	{
-		$this->bet = $bet;
 	}
 
 	/**
@@ -100,27 +68,11 @@ class PokerPlayer
 	}
 
 	/**
-	 * @param mixed $hole_cards
-	 */
-	public function setHoleCards($hole_cards)
-	{
-		$this->hole_cards = $hole_cards;
-	}
-
-	/**
 	 * @return mixed
 	 */
 	public function getVersion()
 	{
 		return $this->version;
-	}
-
-	/**
-	 * @param mixed $version
-	 */
-	public function setVersion($version)
-	{
-		$this->version = $version;
 	}
 
 	/**
@@ -130,15 +82,4 @@ class PokerPlayer
 	{
 		return $this->id;
 	}
-
-	/**
-	 * @param mixed $id
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-
-
-
 }
