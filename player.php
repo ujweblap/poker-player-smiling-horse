@@ -15,7 +15,7 @@ class Player
     {
         $this->logger->getMonolog()->debug('Test log', $game_state[$game_state['in_action']]['hole_cards']);
     	//ALL IN
-	    return 10000;
+	    //return 10000;
 
     	$all_in = $this->checkCards($game_state[$game_state['in_action']]['hole_cards'], $game_state['community_cards']);
     	if ($all_in) {
