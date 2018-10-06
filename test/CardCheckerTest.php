@@ -410,4 +410,164 @@ class CardCheckerTest extends TestCase {
 
         $this->assertEquals(CardChecker::ROYAL_FLUSH, $cardChecker->getWhatWeHave());
     }
+
+    public function testCanBeStraightFromHandAceBeginning()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '5',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '4',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertTrue($cardChecker->canBeStraightFromHand());
+    }
+
+    public function testCanBeStraightFromHandAceEnding()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '10',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '4',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertTrue($cardChecker->canBeStraightFromHand());
+    }
+
+    public function testCanBeStraightFromHand()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '5',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '9',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '4',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertTrue($cardChecker->canBeStraightFromHand());
+    }
+
+    public function testCannotBeStraightFromHand()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '9',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '4',
+                    'suit' => 'club',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+            ]
+        );
+
+        $this->assertFalse($cardChecker->canBeStraightFromHand());
+    }
 }
