@@ -22,6 +22,14 @@ class Player
 		if ($this->check9orHigher($own_cards)) {
 			return true;
 		}
+		//check pair in hand
+		if ($this->hasPair($own_cards)) {
+			return true;
+		}
+	    //check pair
+	    if ($this->hasPair($cards)) {
+			return true;
+	    }
 		return true;
     }
 
@@ -30,6 +38,20 @@ class Player
     		return true;
 	    }
     	return false;
+    }
+
+    public function hasPair($cards) {
+    	$has_pair = false;
+    	foreach ($cards as $i=>$card) {
+		    foreach ($cards as $i2=>$card2) {
+				if ($i!==$i2) {
+					if ($card['rank']==$card2['rank']) {
+						$has_pair = true;
+					}
+				}
+		    }
+	    }
+	    return $has_pair;
     }
 
     public function showdown($game_state)
