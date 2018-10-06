@@ -2,6 +2,12 @@
 
 namespace SmilingHorse;
 
+/**
+ * Class CardChecker
+ * @package SmilingHorse
+ *
+ * @todo: Watch for Aces on both sides
+ */
 class CardChecker
 {
     protected $handCards;
