@@ -26,17 +26,17 @@ class GameState
 		foreach ($game_state_array['player'] as $player_data) {
 			$this->players[] = new Player($player_data);
 		}
-		$this->tournament_id = $game_state_array[''];
-		$this->game_id = $game_state_array[''];
-		$this->round = $game_state_array[''];
-		$this->bet_index = $game_state_array[''];
-		$this->small_blind = $game_state_array[''];
-		$this->orbits = $game_state_array[''];
-		$this->in_action = $game_state_array[''];
-		$this->dealer = $game_state_array[''];
-		$this->community_cards = $game_state_array[''];
-		$this->current_buy_in = $game_state_array[''];
-		$this->pot = $game_state_array[''];
+		$this->tournament_id = $game_state_array['tournament_id'];
+		$this->game_id = $game_state_array['game_id'];
+		$this->round = $game_state_array['round'];
+		$this->bet_index = $game_state_array['bet_index'];
+		$this->small_blind = $game_state_array['small_blind'];
+		$this->orbits = $game_state_array['orbits'];
+		$this->in_action = $game_state_array['in_action'];
+		$this->dealer = $game_state_array['dealer'];
+		$this->community_cards = $game_state_array['community_cards'];
+		$this->current_buy_in = $game_state_array['current_buy_in'];
+		$this->pot = $game_state_array['pot'];
 	}
 
 	/**
