@@ -178,12 +178,6 @@ class CardChecker
 	public function check9orHigher() {
 		$card1 = $this->handCards[0]['rank'];
 		$card2 = $this->handCards[1]['rank'];
-		if (!is_numeric($card1)) {
-			$card1 = $this->mapLetterToNumber($card1);
-		}
-		if (!is_numeric($card2)) {
-			$card2 = $this->mapLetterToNumber($card2);
-		}
 		if ($card1 >= 9 && $card2 >= 9) {
 			return true;
 		}

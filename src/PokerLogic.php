@@ -18,22 +18,6 @@ class PokerLogic {
 
 	}
 
-	public function goAllIn($own_cards, $community_cards) {
-		$cards = array_merge($own_cards, $community_cards);
-		if ($this->check9orHigher($own_cards)) {
-			return true;
-		}
-		//check pair in hand
-		if ($this->hasPair($own_cards)) {
-			return true;
-		}
-		//check pair
-		if ($this->hasPair($cards)) {
-			return true;
-		}
-		return false;
-	}
-
 	public function getBet() {
 		$to_bet = $this->GameState->getCurrentBuyIn() + $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 		//$to_bet = 10000;
@@ -48,7 +32,7 @@ class PokerLogic {
 			case CardChecker::STRAIGHT:
 			case CardChecker::FLUSH:
 			case CardChecker::FULL_HOUSE:
-			case CardChecker::FOUR_OF_A_KIND:
+			case CardChecker::POKER:
 			case CardChecker::STRAIGHT_FLUSH:
 			case CardChecker::ROYAL_FLUSH:
 				$to_call = $to_bet;
