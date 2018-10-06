@@ -22,42 +22,53 @@ class PokerLogic {
 		$to_bet = $this->GameState->getCurrentBuyIn() - $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
 		$multiplier = 0;
-		switch ($this->CardChecker->getWhatWeHave()) {
-			case CardChecker::NOTHING:
-				$multiplier = 0;
-				break;
-			case CardChecker::HIGH_CARDS:
-				$multiplier = 1;
-				break;
-			case CardChecker::PAIR:
-				$multiplier = 1.1;
-				break;
-			case CardChecker::TWO_PAIR:
-				$multiplier = 1.2;
-				break;
-			case CardChecker::DRILL:
-				$multiplier = 1.4;
-				break;
-			case CardChecker::STRAIGHT:
-				$multiplier = 1.6;
-				break;
-			case CardChecker::FLUSH:
-				$multiplier = 1.8;
-				break;
-			case CardChecker::FULL_HOUSE:
+		if ($this->GameState->getOrbits() == 0) {
+			if ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
 				$multiplier = 2;
-				break;
-			case CardChecker::POKER:
-				$multiplier = 2.2;
-				break;
-			case CardChecker::STRAIGHT_FLUSH:
-				$multiplier = 2.4;
-				break;
-			case CardChecker::ROYAL_FLUSH:
-				$multiplier = 2.6;
-				break;
-			default:
+			} else if ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS) {
+				$multiplier = 1;
+			} else if ($this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
+				$multiplier = 1.1;
+			}
+		} else {
+			switch ($this->CardChecker->getWhatWeHave()) {
+				case CardChecker::NOTHING:
+					$multiplier = 0;
+					break;
+				case CardChecker::HIGH_CARDS:
+					$multiplier = 1;
+					break;
+				case CardChecker::PAIR:
+					$multiplier = 1.1;
+					break;
+				case CardChecker::TWO_PAIR:
+					$multiplier = 1.2;
+					break;
+				case CardChecker::DRILL:
+					$multiplier = 1.4;
+					break;
+				case CardChecker::STRAIGHT:
+					$multiplier = 1.6;
+					break;
+				case CardChecker::FLUSH:
+					$multiplier = 1.8;
+					break;
+				case CardChecker::FULL_HOUSE:
+					$multiplier = 2;
+					break;
+				case CardChecker::POKER:
+					$multiplier = 2.2;
+					break;
+				case CardChecker::STRAIGHT_FLUSH:
+					$multiplier = 2.4;
+					break;
+				case CardChecker::ROYAL_FLUSH:
+					$multiplier = 2.6;
+					break;
+				default:
+			}
 		}
+
 		return (int) $to_bet * $multiplier;
 	}
 }
