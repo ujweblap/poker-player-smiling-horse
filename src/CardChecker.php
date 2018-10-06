@@ -54,4 +54,21 @@ class CardChecker
         }
         return false;
     }
+
+	public function getCardCounts() {
+		return array(
+			$this->handCards[0]['rank'] => $this->countCards($this->handCards[0]),
+			$this->handCards[1]['rank'] => $this->countCards($this->handCards[1]),
+		);
+	}
+
+	public function countCards($single_card) {
+		$count = 0;
+		foreach ($this->allCards as $card) {
+			if ($card['rank'] === $single_card['rand']) {
+				$count++;
+			}
+		}
+		return $count;
+	}
 }
