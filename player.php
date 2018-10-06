@@ -21,7 +21,7 @@ class Player
 			    $this->logger->getMonolog()->debug('Bet not a number! ', [$bet]);
 			    return 0;
 		    }
-			return $bet;
+			return (int) $bet;
 	    } catch (Exception $e) {
 		    $this->logger->getMonolog()->debug('Exception! ', [$e->getMessage()]);
     		return 0;
