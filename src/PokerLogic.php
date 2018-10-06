@@ -13,7 +13,23 @@ class PokerLogic {
 		$this->PokerPlayer = new PokerPlayer($game_state[$game_state['in_action']]);
 
 	}
-	
+
+	public function goAllIn($own_cards, $community_cards) {
+		$cards = array_merge($own_cards, $community_cards);
+		if ($this->check9orHigher($own_cards)) {
+			return true;
+		}
+		//check pair in hand
+		if ($this->hasPair($own_cards)) {
+			return true;
+		}
+		//check pair
+		if ($this->hasPair($cards)) {
+			return true;
+		}
+		return false;
+	}
+
 	public function getBet() {
 		$to_bet = $this->GameState->getCurrentBuyIn() + $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 

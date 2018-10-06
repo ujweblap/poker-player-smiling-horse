@@ -95,9 +95,9 @@ class CardChecker
 		return $count;
 	}
 
-	public function check9orHigher($own_cards) {
-		$card1 = $own_cards[0]['rank'];
-		$card2 = $own_cards[1]['rank'];
+	public function check9orHigher() {
+		$card1 = $this->handCards[0]['rank'];
+		$card2 = $this->handCards[1]['rank'];
 		if (!is_numeric($card1)) {
 			$card1 = $this->mapLetterToNumber($card1);
 		}
