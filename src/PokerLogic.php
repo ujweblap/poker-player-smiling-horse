@@ -30,6 +30,11 @@ class PokerLogic
     {
         $to_bet = $this->GameState->getCurrentBuyIn() - $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
+        $weHave = $this->CardChecker->getWhatWeHave();
+        if ($weHave < CardChecker::PAIR || ($weHave == CardChecker::FLUSH && empty($this->GameState->getCommunityCards()))) {
+            return $this->fold();
+        }
+
         $multiplier = $this->fold();
         if (empty($this->GameState->getCommunityCards())) {
             if ($this->CardChecker->hasHighCards() && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
@@ -88,10 +93,6 @@ class PokerLogic
                     $multiplier = $this->check();
                 }
             }
-        }
-
-        if ($this->CardChecker->getWhatWeHave() < CardChecker::PAIR) {
-            return $this->fold();
         }
 
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
