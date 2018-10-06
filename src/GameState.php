@@ -20,6 +20,7 @@ class GameState
 	public $community_cards;
 	public $current_buy_in;
 	public $pot;
+	public $minimum_raise;
 
 	public function __construct($game_state_array)
 	{
@@ -37,6 +38,7 @@ class GameState
 		$this->community_cards = $game_state_array['community_cards'];
 		$this->current_buy_in = $game_state_array['current_buy_in'];
 		$this->pot = $game_state_array['pot'];
+		$this->minimum_raise = $game_state_array['minimum_raise'];
 	}
 
 	/**
