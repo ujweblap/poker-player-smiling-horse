@@ -38,7 +38,7 @@ class Player
 	    if ($this->hasPair($cards)) {
 			return true;
 	    }
-		return true;
+		return false;
     }
 
     public function check9orHigher($own_cards) {
