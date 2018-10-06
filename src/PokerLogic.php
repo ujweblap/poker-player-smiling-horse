@@ -94,8 +94,10 @@ class PokerLogic
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
             $multiplier = $this->raise(3);
         }
+        
 		if ($multiplier == $this->check()) return $to_bet;
-		return $multiplier > 1.2 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
+		if ($multiplier <= 1.2) return $to_bet;
+		return $multiplier > 1.2 ? ($to_bet) + ($multiplier * ($this->GameState->minimum_raise)) : 0;
     }
 
     protected function fold()
