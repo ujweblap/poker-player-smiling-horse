@@ -72,7 +72,7 @@ class PokerLogic {
 					$multiplier = 1;
 				}
 			}
-			if (sizeof($this->GameState->getCommunityCards()) >= 3 && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
+			if ($multiplier == 0 && sizeof($this->GameState->getCommunityCards()) >= 3 && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
 				$multiplier = 1;
 			}
 		}
