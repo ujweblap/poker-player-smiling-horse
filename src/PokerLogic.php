@@ -91,6 +91,8 @@ class PokerLogic
 
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
             $multiplier = 10;
+        } elseif ($this->doBluff()) {
+            $multiplier = 4;
         }
 
         return $to_bet * $multiplier;
