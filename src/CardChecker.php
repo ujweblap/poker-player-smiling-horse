@@ -5,8 +5,6 @@ namespace SmilingHorse;
 /**
  * Class CardChecker
  * @package SmilingHorse
- *
- * @todo: Watch for Aces on both sides
  */
 class CardChecker
 {
@@ -120,7 +118,7 @@ class CardChecker
 
     public function hasStraight()
     {
-        $sortedCards = $this->sortCardsByRank($this->allCards);
+        $sortedCards = $this->sortCardsByRank($this->addAceToTheBeginning($this->allCards));
         $lastCardRank = false;
         $cards = [];
         foreach ($sortedCards as $card) {
@@ -303,6 +301,21 @@ class CardChecker
         usort($cards, function ($a, $b) {
             return $a['rank'] <=> $b['rank'];
         });
+
+        return $cards;
+    }
+
+    protected function addAceToTheBeginning($cards)
+    {
+        foreach ($cards as $card) {
+            if($card['rank'] == 13)
+            {
+                $cards[] = [
+                    'rank' => 1,
+                    'suit' => $card['suit'],
+                ];
+            }
+        }
 
         return $cards;
     }

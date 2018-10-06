@@ -171,6 +171,46 @@ class CardCheckerTest extends TestCase {
         $this->assertEquals(CardChecker::STRAIGHT, $cardChecker->getWhatWeHave());
     }
 
+    public function testHasStraightWithAceAtTheStart()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'spades',
+                ],
+            ],
+            [
+                [
+                    'rank' => '4',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '2',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '5',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ]
+        );
+
+        $this->assertEquals(CardChecker::STRAIGHT, $cardChecker->getWhatWeHave());
+    }
+
     public function testHasFlush()
     {
         $cardChecker = new \SmilingHorse\CardChecker(
