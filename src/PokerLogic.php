@@ -13,13 +13,7 @@ class PokerLogic {
 		$this->PokerPlayer = new PokerPlayer($game_state[$game_state['in_action']]);
 
 	}
-
-	const STRAIGHT = 4;
-	const FLUSH = 5;
-	const FULL_HOUSE = 6;
-	const FOUR_OF_A_KIND = 7;
-	const STRAIGHT_FLUSH = 8;
-	const ROYAL_FLUSH = 9;
+	
 	public function getBet() {
 		$to_bet = $this->GameState->getCurrentBuyIn() + $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
