@@ -154,11 +154,11 @@ class CardCheckerTest extends TestCase {
                     'suit' => 'spades',
                 ],
                 [
-                    'rank' => '6',
+                    'rank' => 'K',
                     'suit' => 'clubs',
                 ],
                 [
-                    'rank' => 'K',
+                    'rank' => '6',
                     'suit' => 'spades',
                 ],
                 [
@@ -289,5 +289,45 @@ class CardCheckerTest extends TestCase {
         );
 
         $this->assertEquals(CardChecker::POKER, $cardChecker->getWhatWeHave());
+    }
+
+    public function testHasStraightFlush()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'hearts',
+                ],
+            ],
+            [
+                [
+                    'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '4',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => '5',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '6',
+                    'suit' => 'hearts',
+                ],
+            ]
+        );
+
+        $this->assertEquals(CardChecker::STRAIGHT_FLUSH, $cardChecker->getWhatWeHave());
     }
 }
