@@ -69,6 +69,6 @@ class PokerLogic {
 			}
 		}
 
-		return (int) $to_bet * $multiplier;
+		return $to_bet * $multiplier;
 	}
 }
