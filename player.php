@@ -13,14 +13,19 @@ class Player
 
     public function betRequest($game_state)
     {
-        $this->logger->getMonolog()->debug('Game state', $game_state);
-		$pokerLogic = new \SmilingHorse\PokerLogic($game_state);
-		$bet = $pokerLogic->getBet();
-		if (!is_numeric($bet)) {
-			$this->logger->getMonolog()->debug('Bet not a number! ', [$bet]);
-			return 0;
-		}
-		return $bet;
+    	try {
+		    $this->logger->getMonolog()->debug('Game state', $game_state);
+		    $pokerLogic = new \SmilingHorse\PokerLogic($game_state);
+		    $bet = $pokerLogic->getBet();
+		    if (!is_numeric($bet)) {
+			    $this->logger->getMonolog()->debug('Bet not a number! ', [$bet]);
+			    return 0;
+		    }
+			return $bet;
+	    } catch (Exception $e) {
+		    $this->logger->getMonolog()->debug('Exception! ', [$e->getMessage()]);
+    		return 0;
+	    }
     }
 
     public function showdown($game_state)
