@@ -67,7 +67,7 @@ class PokerLogic
                     $multiplier = $this->raise(1.4);
                     break;
                 case CardChecker::TWO_PAIR:
-                    $multiplier = $this->raise(1.2);
+                    $multiplier = $this->raise(1.3);
                     break;
                 case CardChecker::PAIR:
                     $multiplier = $this->raise(1.0);
@@ -92,12 +92,10 @@ class PokerLogic
 
 
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
-            $multiplier = $this->raise(10);
-        } elseif ($this->doBluff()) {
-            $multiplier = $this->raise(4);
+            $multiplier = $this->raise(3);
         }
-
-		return $multiplier > 0 ? ($to_bet + $this->GameState->minimum_raise) + ($multiplier * ($this->GameState->getSmallBlind() * 2)) : 0;
+		if ($multiplier == 1) return $to_bet;
+		return $multiplier > 1.2 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
     }
 
     protected function fold()
