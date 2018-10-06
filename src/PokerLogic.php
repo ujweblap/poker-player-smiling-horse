@@ -23,8 +23,10 @@ class PokerLogic {
 	public function getBet() {
 		$to_bet = $this->GameState->getCurrentBuyIn() + $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
+		$to_call = 0;
 		switch ($this->CardChecker->getWhatWeHave()) {
 			case CardChecker::NOTHING:
+				break;
 			case CardChecker::PAIR:
 			case CardChecker::TWO_PAIR:
 			case CardChecker::DRILL:
@@ -34,11 +36,11 @@ class PokerLogic {
 			case CardChecker::FOUR_OF_A_KIND:
 			case CardChecker::STRAIGHT_FLUSH:
 			case CardChecker::ROYAL_FLUSH:
-
+				$to_call = $to_bet;
+				break;
 			default:
-				return 0;
 		}
 
-		return 0;
+		return $to_call;
 	}
 }
