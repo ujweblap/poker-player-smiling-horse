@@ -44,7 +44,7 @@ class CardChecker
     {
         $this->handCards = $this->convertCardRank($handCards);
         $this->communityCards = $this->convertCardRank($communityCards);
-        $this->allCards = array_merge($handCards, $communityCards);
+        $this->allCards = array_merge($this->handCards, $this->communityCards);
     }
 
     public function getWhatWeHave()
