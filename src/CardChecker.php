@@ -42,8 +42,8 @@ class CardChecker
      */
     public function __construct($handCards, $communityCards)
     {
-        $this->handCards = $handCards;
-        $this->communityCards = $communityCards;
+        $this->handCards = $this->convertCardRank($handCards);
+        $this->communityCards = $this->convertCardRank($communityCards);
         $this->allCards = array_merge($handCards, $communityCards);
     }
 
@@ -93,6 +93,28 @@ class CardChecker
 			}
 		}
 		return $count;
+	}
+
+	public function check9orHigher($own_cards) {
+		$card1 = $own_cards[0]['rank'];
+		$card2 = $own_cards[1]['rank'];
+		if (!is_numeric($card1)) {
+			$card1 = $this->mapLetterToNumber($card1);
+		}
+		if (!is_numeric($card2)) {
+			$card2 = $this->mapLetterToNumber($card2);
+		}
+		if ($card1 >= 9 && $card2 >= 9) {
+			return true;
+		}
+		return false;
+	}
+
+	public function convertCardRank($cards) {
+    	for ($i=0;$i<count($cards);$i++) {
+    		$cards[$i]['rank'] = $this->mapLetterToNumber($cards[$i]['rank']);
+	    }
+	    return $cards;
 	}
 
 	public function mapLetterToNumber($letter) {
