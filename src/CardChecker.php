@@ -116,6 +116,18 @@ class CardChecker
         return false;
     }
 
+    public function canBeStraightFromHand()
+    {
+        $biggerCard = max($this->handCards[0]['rank'], $this->handCards[1]['rank']);
+        $smallerCard = min($this->handCards[0]['rank'], $this->handCards[1]['rank']);
+        if($biggerCard == 14)
+        {
+            return $biggerCard - $smallerCard < 5 || $smallerCard - 1 < 5;
+        }
+
+        return $biggerCard - $smallerCard < 5;
+    }
+
     public function hasStraight()
     {
         $sortedCards = $this->sortCardsByRank($this->addAceToTheBeginning($this->allCards));
