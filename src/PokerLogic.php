@@ -90,6 +90,9 @@ class PokerLogic
             }
         }
 
+        if ($this->CardChecker->getWhatWeHave() < CardChecker::PAIR) {
+            return $this->fold();
+        }
 
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
             $multiplier = $this->raise(3);
