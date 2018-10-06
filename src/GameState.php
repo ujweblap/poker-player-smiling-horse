@@ -23,7 +23,7 @@ class GameState
 
 	public function __construct($game_state_array)
 	{
-		foreach ($game_state_array['player'] as $player_data) {
+		foreach ($game_state_array['players'] as $player_data) {
 			$this->players[] = new PokerPlayer($player_data);
 		}
 		$this->tournament_id = $game_state_array['tournament_id'];
