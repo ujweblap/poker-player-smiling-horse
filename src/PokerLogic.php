@@ -15,7 +15,7 @@ class PokerLogic {
 		$this->logger->getMonolog()->debug('PokerLogic Player hole_cards', [$game_state[$game_state['in_action']]['hole_cards'], type($game_state[$game_state['in_action']]['hole_cards'])]);
 		$this->logger->getMonolog()->debug('PokerLogic Community_cards', [$game_state['community_cards'], type($game_state['community_cards'])]);
 		$this->GameState = new GameState($game_state);
-		$this->CardChecker = new CardChecker($game_state[$game_state['in_action']]['hole_cards'], $game_state['community_cards']);
+		$this->CardChecker = new CardChecker($game_state[$game_state['in_action']]['hole_cards'], (is_array($game_state['community_cards'])?$game_state['community_cards']:[]));
 		$this->PokerPlayer = new PokerPlayer($game_state[$game_state['in_action']]);
 
 	}
