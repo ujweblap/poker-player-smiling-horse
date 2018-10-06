@@ -56,10 +56,12 @@ class CardChecker
             $weHave = static::POKER;
         } elseif ($this->hasFullHouse()) {
             $weHave = static::FULL_HOUSE;
-        } elseif ($this->hasDrill()) {
-            $weHave = static::DRILL;
+        } elseif ($this->hasFlush()) {
+            $weHave = static::FLUSH;
         } elseif ($this->hasStraight()) {
             $weHave = static::STRAIGHT;
+        } elseif ($this->hasDrill()) {
+            $weHave = static::DRILL;
         } elseif ($this->hasPair(true)) {
             $weHave = static::TWO_PAIR;
         } elseif ($this->hasPair()) {
@@ -129,6 +131,18 @@ class CardChecker
         return false;
     }
 
+    public function hasFlush()
+    {
+        foreach ($this->getAllCardSuitCounts() as $suitCount) {
+            if($suitCount > 4)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function hasFullHouse()
     {
         return $this->hasDrill() && $this->hasPair();
@@ -167,6 +181,31 @@ class CardChecker
         }
 
         return $cards;
+    }
+
+    public function getAllCardSuitCounts()
+    {
+        $suits = [];
+
+        foreach ($this->handCards as $handCard) {
+            if (!isset($suits[$handCard['suit']])) {
+                $suits[$handCard['suit']] = 1;
+                continue;
+            }
+
+            $suits[$handCard['suit']]++;
+        }
+
+        foreach ($this->communityCards as $communityCard) {
+            if (!isset($suits[$communityCard['suit']])) {
+                $suits[$communityCard['suit']] = 1;
+                continue;
+            }
+
+            $suits[$communityCard['suit']]++;
+        }
+
+        return $suits;
     }
 
     public function getCardCounts()
