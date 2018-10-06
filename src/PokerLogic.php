@@ -94,7 +94,7 @@ class PokerLogic
             $multiplier = 3;
         }
 
-		return $multiplier > 0 ? ($to_bet + $this->GameState->minimum_raise) + ($multiplier * ($this->GameState->getSmallBlind() * 2)) : 0;
+		return $multiplier > 0 ? ($to_bet) * ($multiplier * ($this->GameState->minimum_raise)) : 0;
     }
 
     public function doBluff()
