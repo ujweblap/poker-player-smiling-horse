@@ -79,4 +79,16 @@ class PokerLogic {
 
 		return $to_bet * $multiplier;
 	}
+
+	public function doBluff()
+    {
+        $random = rand(0, $this->GameState->getRound()) * rand(10, 50);
+
+        if($random == 0)
+        {
+            return false;
+        }
+
+        return $random % 3;
+    }
 }
