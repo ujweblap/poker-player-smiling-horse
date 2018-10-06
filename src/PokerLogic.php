@@ -8,6 +8,7 @@ class PokerLogic
     public $CardChecker;
     public $PokerPlayer;
     public $logger;
+    public $aggression = 1;
 
     public function __construct($game_state)
     {
@@ -29,74 +30,89 @@ class PokerLogic
     {
         $to_bet = $this->GameState->getCurrentBuyIn() - $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
-        $multiplier = 0;
+        $multiplier = $this->fold();
         if (empty($this->GameState->getCommunityCards())) {
             if ($this->CardChecker->hasHighCards() && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
-                $multiplier = 2;
+                $multiplier = $this->raise(2);
             } elseif ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS) {
-                $multiplier = 1;
+                $multiplier = $this->check();
             } elseif ($this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
-                $multiplier = 1.1;
+                $multiplier = $this->raise(1.1);
             } elseif ($this->CardChecker->canBeStraightFromHand() && $this->CardChecker->getCountMaxSameColor() == 2) {
-                $multiplier = 1.2;
+                $multiplier = $this->raise(1.2);
             } elseif ($this->CardChecker->getCountMaxSameColor() == 2 && $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet() < $this->GameState->getSmallBlind() * 2) {
-                $multiplier = 1;
+                $multiplier = $this->raise(1);
             }
         } else {
             switch ($this->CardChecker->getWhatWeHave()) {
                 case CardChecker::ROYAL_FLUSH:
-                    $multiplier = 2.6;
+                    $multiplier = $this->raise(2.6);
                     break;
                 case CardChecker::STRAIGHT_FLUSH:
-                    $multiplier = 2.4;
+                    $multiplier = $this->raise(2.4);
                     break;
                 case CardChecker::POKER:
-                    $multiplier = 2.2;
+                    $multiplier = $this->raise(2.2);
                     break;
                 case CardChecker::FULL_HOUSE:
-                    $multiplier = 2;
+                    $multiplier = $this->raise(2);
                     break;
                 case CardChecker::FLUSH:
-                    $multiplier = 1.8;
+                    $multiplier = $this->raise(1.8);
                     break;
                 case CardChecker::STRAIGHT:
-                    $multiplier = 1.6;
+                    $multiplier = $this->raise(1.6);
                     break;
                 case CardChecker::DRILL:
-                    $multiplier = 1.4;
+                    $multiplier = $this->raise(1.4);
                     break;
                 case CardChecker::TWO_PAIR:
-                    $multiplier = 1.2;
+                    $multiplier = $this->raise(1.2);
                     break;
                 case CardChecker::PAIR:
-                    $multiplier = 1.0;
+                    $multiplier = $this->raise(1.0);
                     break;
                 case CardChecker::NOTHING:
                 case CardChecker::HIGH_CARDS:
                 default:
-                    $multiplier = 0;
+                    $multiplier = $this->fold();
                     break;
             }
-            if ($multiplier == 0 && sizeof($this->GameState->getCommunityCards()) == 3) {
+            if ($multiplier == $this->fold() && sizeof($this->GameState->getCommunityCards()) == 3) {
                 if ($this->CardChecker->getCountMaxSameColor() == 4 || $this->CardChecker->canBeStraight()) {
-                    $multiplier = 1;
+                    $multiplier = $this->raise(1);
                 }
             }
-            if ($multiplier == 0 && sizeof($this->GameState->getCommunityCards()) >= 3) {
+            if ($multiplier == $this->fold() && sizeof($this->GameState->getCommunityCards()) >= 3) {
                 if ($this->CardChecker->canBeStraight()) {
-                    $multiplier = 1;
+                    $multiplier = $this->raise(1);
                 }
             }
         }
 
 
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
-            $multiplier = 10;
+            $multiplier = $this->raise(10);
         } elseif ($this->doBluff()) {
-            $multiplier = 4;
+            $multiplier = $this->raise(4);
         }
 
-		return ($to_bet + $this->GameState->minimum_raise) * ($multiplier * ($this->GameState->getSmallBlind() * 2));
+        return ($to_bet + $this->GameState->minimum_raise) * ($multiplier * ($this->GameState->getSmallBlind() * 2));
+    }
+
+    protected function fold()
+    {
+        return 0;
+    }
+
+    public function check()
+    {
+        return 1;
+    }
+
+    public function raise($multiplier)
+    {
+        return $this->aggression * $multiplier;
     }
 
     public function doBluff()
