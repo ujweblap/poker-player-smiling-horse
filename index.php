@@ -1,6 +1,9 @@
 <?php
 
 require_once('player.php');
+require_once ('PokerPlayer.php');
+require_once ('GameState.php');
+
 
 $player = new Player();
 
