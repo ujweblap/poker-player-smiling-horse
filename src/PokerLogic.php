@@ -31,7 +31,7 @@ class PokerLogic {
 	}
 
 	public function getBet() {
-		$to_bet = $this->GameState->getCurrentBuyIn() + $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
+		$to_bet = $this->GameState->getCurrentBuyIn() - $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
 		$multiplier = 0;
 		switch ($this->CardChecker->getWhatWeHave()) {
