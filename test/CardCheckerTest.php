@@ -39,11 +39,11 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => '4',
-                    'suit' => 'spades',
+                    'suit' => 'clubs',
                 ],
                 [
                     'rank' => 'A',
-                    'suit' => 'spades',
+                    'suit' => 'hearts',
                 ],
             ]
         );
@@ -75,7 +75,7 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => '10',
-                    'suit' => 'spades',
+                    'suit' => 'clubs',
                 ],
                 [
                     'rank' => '4',
@@ -83,7 +83,7 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => 'A',
-                    'suit' => 'spades',
+                    'suit' => 'hearts',
                 ],
             ]
         );
@@ -119,11 +119,11 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => '4',
-                    'suit' => 'spades',
+                    'suit' => 'clubs',
                 ],
                 [
                     'rank' => 'A',
-                    'suit' => 'spades',
+                    'suit' => 'hearts',
                 ],
             ]
         );
@@ -155,6 +155,46 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => '6',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => 'K',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => 'A',
+                    'suit' => 'hearts',
+                ],
+            ]
+        );
+
+        $this->assertEquals(CardChecker::STRAIGHT, $cardChecker->getWhatWeHave());
+    }
+
+    public function testHasFlush()
+    {
+        $cardChecker = new \SmilingHorse\CardChecker(
+            [
+                [
+                    'rank' => '2',
+                    'suit' => 'hearts',
+                ],
+                [
+                    'rank' => '3',
+                    'suit' => 'spades',
+                ],
+            ],
+            [
+                [
+                    'rank' => 'J',
+                    'suit' => 'clubs',
+                ],
+                [
+                    'rank' => '5',
+                    'suit' => 'spades',
+                ],
+                [
+                    'rank' => '6',
                     'suit' => 'spades',
                 ],
                 [
@@ -168,7 +208,7 @@ class CardCheckerTest extends TestCase {
             ]
         );
 
-        $this->assertEquals(CardChecker::STRAIGHT, $cardChecker->getWhatWeHave());
+        $this->assertEquals(CardChecker::FLUSH, $cardChecker->getWhatWeHave());
     }
 
     public function testHasFullHouse()
@@ -195,7 +235,7 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => '6',
-                    'suit' => 'spades',
+                    'suit' => 'clubs',
                 ],
                 [
                     'rank' => '4',
@@ -203,7 +243,7 @@ class CardCheckerTest extends TestCase {
                 ],
                 [
                     'rank' => 'A',
-                    'suit' => 'spades',
+                    'suit' => 'hearts',
                 ],
             ]
         );
