@@ -16,6 +16,14 @@ class Player
         $this->logger->getMonolog()->debug('Test log', $game_state[$game_state['in_action']]['hole_cards']);
     	//ALL IN
 	    //return 10000;
+		$pokerLogic = new \SmilingHorse\PokerLogic();
+		$bet = $pokerLogic->getBet();
+		if (!is_numeric($bet)) {
+			$this->logger->getMonolog()->debug('Bet not a number! ', [$bet]);
+			return 0;
+		}
+		return $bet;
+
 
     	$all_in = $this->checkCards($game_state[$game_state['in_action']]['hole_cards'], $game_state['community_cards']);
     	if ($all_in) {
