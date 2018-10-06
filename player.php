@@ -4,7 +4,7 @@ class Player
 {
     protected $logger;
 
-    const VERSION = "Smiling Horse 😁🐴";
+    const VERSION = "Smiling Horse";
 
     public function __construct()
     {
