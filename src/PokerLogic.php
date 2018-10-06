@@ -22,7 +22,7 @@ class PokerLogic {
 		$to_bet = $this->GameState->getCurrentBuyIn() - $this->GameState->getPlayers()[$this->GameState->getInAction()]->getBet();
 
 		$multiplier = 0;
-		if ($this->GameState->getOrbits() == 0) {
+		if (empty($this->GameState->getCommunityCards())) {
 			if ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS && $this->CardChecker->getWhatWeHave() == CardChecker::PAIR) {
 				$multiplier = 2;
 			} else if ($this->CardChecker->getWhatWeHave() == CardChecker::HIGH_CARDS) {
