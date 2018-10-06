@@ -19,6 +19,22 @@ class CardChecker
     const STRAIGHT_FLUSH = 8;
     const ROYAL_FLUSH = 9;
 
+    public $card_number_map = array(
+	    '2' => 2,
+	    '3' => 3,
+	    '4' => 4,
+	    '5' => 5,
+	    '6' => 6,
+	    '7' => 7,
+	    '8' => 8,
+	    '9' => 9,
+	    '10' => 10,
+	    'J' => 11,
+	    'Q' => 12,
+	    'K' => 13,
+	    'A' => 14
+    );
+
     /**
      * CardChecker constructor.
      * @param $handCards
@@ -77,5 +93,9 @@ class CardChecker
 			}
 		}
 		return $count;
+	}
+
+	public function mapLetterToNumber($letter) {
+		return $this->card_number_map[$letter];
 	}
 }
