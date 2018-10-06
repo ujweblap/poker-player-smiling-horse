@@ -91,9 +91,7 @@ class PokerLogic
 
 
         if ($this->CardChecker->getWhatWeHave() >= CardChecker::DRILL) {
-            $multiplier = 10;
-        } elseif ($this->doBluff()) {
-            $multiplier = 4;
+            $multiplier = 3;
         }
 
 		return ($to_bet + $this->GameState->minimum_raise) * ($multiplier * ($this->GameState->getSmallBlind() * 2));
