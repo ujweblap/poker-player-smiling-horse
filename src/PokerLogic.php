@@ -26,8 +26,11 @@ class PokerLogic {
 			case CardChecker::NOTHING:
 				$multiplier = 0;
 				break;
-			case CardChecker::PAIR:
+			case CardChecker::HIGH_CARDS:
 				$multiplier = 1;
+				break;
+			case CardChecker::PAIR:
+				$multiplier = 1.1;
 				break;
 			case CardChecker::TWO_PAIR:
 				$multiplier = 1.2;

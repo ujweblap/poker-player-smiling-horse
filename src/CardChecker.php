@@ -9,6 +9,7 @@ class CardChecker
     protected $allCards;
 
     const NOTHING = 0;
+    const HIGH_CARDS = 1;
     const PAIR = 1;
     const TWO_PAIR = 2;
     const DRILL = 3;
@@ -63,9 +64,20 @@ class CardChecker
             $weHave = static::TWO_PAIR;
         } elseif ($this->hasPair()) {
             $weHave = static::PAIR;
+        } elseif ($this->hasHighCards()) {
+        	$weHave = static::HIGH_CARDS;
         }
 
         return $weHave;
+    }
+
+    public function hasHighCards() {
+	    $card1 = $this->handCards[0]['rank'];
+	    $card2 = $this->handCards[1]['rank'];
+	    if ($card1 >= 10 && $card2 >= 10) {
+		    return true;
+	    }
+	    return false;
     }
 
     public function hasPair($double = false)
